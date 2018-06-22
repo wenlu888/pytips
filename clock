@@ -1,0 +1,34 @@
+import time
+import re
+import os
+
+
+#---------------定时器------------------
+def clock(start):
+    while start:
+        local_time = time.localtime()
+        local_hour = local_time[3]
+        local_min = local_time[4]
+        local_sec = local_time[5]
+        if local_hour == 23 and local_min == 59 and local_sec == 00:
+            return True
+
+
+def bakcup(a,log_file,real_target_dir):
+    # while clock(a):
+    while True:
+        # ---------------定时器启动开启备份------------------
+        # 先确定备份文件和目录
+        log_file_list = os.listdir(real_target_dir)
+        file_name_pattern = log_file.file_name_pattern
+        file_name_pattern.split('*')
+
+        r = re.compile(file_name_pattern)
+        file_name = r.findall(str(log_file_list))[0]
+        # 对当日同步文件进行重命名
+        command = "mv "+ real_target_dir + file_name + ' ' +real_target_dir + "."+time.strftime("%Y-%m-%d", time.localtime())
+        print (command)
+
+
+if __name__ == '__main__':
+    bakcup()
