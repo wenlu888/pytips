@@ -1,0 +1,21 @@
+from logging import FileHandler
+from logging.handlers import TimedRotatingFileHandler as Rotater
+import collections
+import logging
+import os
+LOG_DIR = '/home/opan/gdtel-paas-logcenter-master/gdtel/log_center/log'
+LOG_FILE_PATH = os.path.join(LOG_DIR, 'log_centor.log')
+LOG_ROTATION = True
+LOG_ROTATION_COUNT = 5
+logger = logging.getLogger('server')
+logger.setLevel(logging.DEBUG)
+formatter = logging.Formatter("%(asctime)s :%(threadName)s: %(message)s",
+                              "%a %b %d %H:%M:%S %Y")
+if LOG_ROTATION:
+    handler = Rotater(LOG_FILE_PATH,
+                      when='midnight',
+                      backupCount=LOG_ROTATION_COUNT)
+else:
+    handler = FileHandler(LOG_FILE_PATH)
+handler.setFormatter(formatter)
+logger.addHandler(handler)
