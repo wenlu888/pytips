@@ -1,3 +1,4 @@
+import paramiko
 def get_hostname(a):
     # 创建SSH对象
     need_hostname = []
